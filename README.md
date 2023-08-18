@@ -20,6 +20,7 @@ For wilson lab users on O2:
 
 ```
 # Get an O2 GPU
+screen -S deepcadrt
 srun -n 1 --pty -t 26:00:00 -p gpu_quad --gres=gpu:rtx8000:1 --mem 24G bash
 module load gcc/6.2.0 cuda/10.2 miniconda3/4.10.3 python/3.6.0
 
