@@ -14,6 +14,36 @@
 - [License](./LICENSE)
 - [Citation](#citation)
 
+## tldr
+
+For wilson lab users on O2:
+
+```
+# Get an O2 GPU
+srun -n 1 --pty -t 26:00:00 -p gpu_quad --gres=gpu:rtx8000:1 --mem 24G bash
+module load gcc/6.2.0 cuda/10.2 miniconda3/4.10.3 python/3.6.0
+
+# Create a conda environment for deepCAD
+conda init bash
+conda create -n deepcadrt python=3.6
+conda activate deepcadrt
+
+# Install pytorch compatible with chosen CUDA
+pip install torch==1.8.0
+conda install pytorch==1.8.0 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.2 -c pytorch
+pip install --upgrade pip setuptools wheel
+pip3 install opencv-python==4.1.2.30
+pip install deepcad
+
+## Install repo
+git clone https://github.com/wilson-lab/DeepCAD-RT
+
+# Try out
+conda activate deepcadrt
+cd DeepCAD-RT/DeepCAD_RT_pytorch/
+python demo_test_pipeline.py
+```
+
 ## Overview
 
 **Among the challenges of fluorescence microscopy, poor imaging signal-to-noise ratio (SNR) caused by limited photon budget lingeringly stands in the central position.** Fluorescence microscopy is inherently sensitive to detection noise because the photon flux in fluorescence imaging is far lower than that in photography. For almost all fluorescence imaging technologies, the inherent [**shot-noise limit**](https://cabooster.github.io/DeepCAD-RT/About/) determines the upper bound of imaging SNR and restricts the imaging resolution, speed, and sensitivity. To capture enough fluorescence photons for satisfactory SNR, researchers have to sacrifice imaging resolution, speed, and even sample health.  
