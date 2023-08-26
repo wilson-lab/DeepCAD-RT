@@ -30,15 +30,15 @@ patch_xy = 150              # the width and height of 3D patches
 patch_t = 150               # the time dimension of 3D patches
 overlap_factor = 0.25       # the overlap factor between two adjacent patches
 pth_dir = './pth'           # pth file and visualization result file path
-num_workers = 4             # if you use Windows system, set this to 0.
+num_workers = 1             # if you use Windows system, set this to 0.
 
 # %% Setup some parameters for result visualization during training period (optional)
-visualize_images_per_epoch = True  # choose whether to show inference performance after each epoch
+visualize_images_per_epoch = False  # choose whether to show inference performance after each epoch
 save_test_images_per_epoch = True  # choose whether to save inference image after each epoch in pth path
 
 # %% Play the demo noise movie (optional)
 # playing the first noise movie using opencv.
-display_images = True
+display_images = False
 
 if display_images:
     display_filename = get_first_filename(datasets_path)

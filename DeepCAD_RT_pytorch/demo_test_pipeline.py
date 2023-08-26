@@ -24,15 +24,16 @@ else:
 
 # %% First setup some parameters for testing
 test_datasize = 100000                # the number of frames to be tested (test all frames if the number exceeds the total number of frames in a .tif file)
+output_dir = '/n/data1/hms/neurobio/wilson/DeepCAD_results/DeepCAD_RT_test'
 GPU = '0'                             # the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')
 patch_xy = 150                        # the width and height of 3D patches
 patch_t = 150                         # the time dimension of 3D patches
 overlap_factor = 0.6                  # the overlap factor between two adjacent patches. 
                                       # Since the receptive field of 3D-Unet is ~90, seamless stitching requires an overlap (patch_xyt*overlap_factor）of at least 90 pixels.
-num_workers = 4                       # if you use Windows system, set this to 0.
+num_workers = 1                       # if you use Windows system, set this to 0.
 
 # %% Setup some parameters for result visualization during testing period (optional)
-visualize_images_per_epoch = True  # choose whether to display inference performance after each epoch
+visualize_images_per_epoch = False  # choose whether to display inference performance after each epoch
 save_test_images_per_epoch = True  # choose whether to save inference image after each epoch in pth path
 
 # %% Play the demo noise movie (optional)
@@ -64,7 +65,8 @@ test_dict = {
     'GPU': GPU,
     'num_workers': num_workers,
     'visualize_images_per_epoch': visualize_images_per_epoch,
-    'save_test_images_per_epoch': save_test_images_per_epoch
+    'save_test_images_per_epoch': save_test_images_per_epoch,
+    'output_dir' : output_dir
 }
 # %%% Testing preparation
 # first we create a testing class object with the specified parameters

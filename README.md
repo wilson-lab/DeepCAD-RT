@@ -16,22 +16,24 @@
 
 ## tldr
 
-For wilson lab users on O2:
+For wilson lab users on O2. You need to replace 'ab714' with your username. It is also important to request a GPU with at least 24G of VRAM and that is compatible with pytorch built undder cuda 11.7. The GPU in the example below fills those requirements.
 
 ```
 # Get an O2 GPU
-screen -S deepcadrt
-srun -n 1 --pty -t 26:00:00 -p gpu_quad --gres=gpu:rtx8000:1 --mem 24G bash
-module load gcc/6.2.0 cuda/10.2 miniconda3/4.10.3 python/3.6.0
+screen -S deepcad_rt
+srun -n 1 --pty -t 12:00:00 -p gpu_quad --gres=gpu:rtx8000:1,vram:48G  --mem 240G -c 4 bash
+module load gcc/9.2.0
+module load cuda/11.7
+module load miniconda3/4.10.3 
+module load python/3.8.12
 
 # Create a conda environment for deepCAD
 conda init bash
-conda create -n deepcadrt python=3.6
-conda activate deepcadrt
+conda create -n deepcad_rt python=3.6
+source activate deepcad_rt
 
 # Install pytorch compatible with chosen CUDA
-pip install torch==1.8.0
-conda install pytorch==1.8.0 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=10.2 -c pytorch
+conda install pytorch torchvision torchaudio cpuonly -c pytorch
 pip install --upgrade pip setuptools wheel
 pip3 install opencv-python==4.1.2.30
 pip install deepcad
@@ -40,11 +42,34 @@ pip install deepcad
 git clone https://github.com/wilson-lab/DeepCAD-RT
 
 # Try out
-conda activate deepcadrt
-cd DeepCAD-RT/DeepCAD_RT_pytorch/
+source activate deepcad_rt
+cd /home/ab714/DeepCAD-RT/DeepCAD_RT_pytorch/
 python demo_test_pipeline.py
+
+# And for my fly demo data on data1
+source activate deepcad_rt
+cd /home/ab714/DeepCAD-RT/
+sbatch o2_flyg_rt_test.sh
+
+# If something goes wrong with the conda environment, you can do this and try again:
+conda deactivate
+conda remove -n deepcad_rt --all
 ```
 
+If you get an error that looks like the following, it may be because you have run out of memory on the GPU you are using, or it did not have enough to start with (which is not obvious from the messgae itself):
+
+```
+RuntimeError: cuDNN error: CUDNN_STATUS_NOT_INITIALIZED
+```
+
+If you get an error like this, you need to request a different GPU which is compartible with your installation:
+
+```
+The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
+If you want to use the NVIDIA A100 80GB PCIe GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+  
+RuntimeError: Unable to find a valid cuDNN algorithm to run convolution  
+```
 ## Overview
 
 **Among the challenges of fluorescence microscopy, poor imaging signal-to-noise ratio (SNR) caused by limited photon budget lingeringly stands in the central position.** Fluorescence microscopy is inherently sensitive to detection noise because the photon flux in fluorescence imaging is far lower than that in photography. For almost all fluorescence imaging technologies, the inherent [**shot-noise limit**](https://cabooster.github.io/DeepCAD-RT/About/) determines the upper bound of imaging SNR and restricts the imaging resolution, speed, and sensitivity. To capture enough fluorescence photons for satisfactory SNR, researchers have to sacrifice imaging resolution, speed, and even sample health.  
