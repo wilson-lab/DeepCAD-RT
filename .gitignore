@@ -4,3 +4,4 @@
 *.onnx
 *.err
 *.out
+*.gpulog
