@@ -9,9 +9,6 @@
 
 start=`date +%s`
 
-chosen_plane="${2:-$0}"
-patch_xy="${3:-$10}"
-
 module load gcc/9.2.0
 module load cuda/11.7
 module load miniconda3/4.10.3 
@@ -19,12 +16,10 @@ module load python/3.8.12
 
 /n/cluster/bin/job_gpu_monitor.sh &
 
-echo 'training on dataset: ' $1
-echo 'using plane: ' $2
 echo 'activate deepcad_rt'
 source activate deepcad_rt
 echo "deepcad-rt test initiated"
-python flyg_train.py --datasets_path $1 --chosen_plane $2 --patch_xy $3
+python flyg_train_example.py
 echo "deepcad-rt train complete"
 
 end=`date +%s`
