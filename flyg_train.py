@@ -1,4 +1,4 @@
-from deepcad.test_collection import testing_class
+from deepcad.train_collection import training_class
 from deepcad.movie_display import display
 from deepcad.utils import get_first_filename,download_demo
 import argparse
@@ -30,8 +30,6 @@ def find_folders_with_partial_name(directory_path, partial_name):
 
 # %% First setup some parameters for testing
 datasets_path = opt.datasets_path # folder containing tif files for testing
-pth_dir = opt.pth_dir # standard model location + specific model
-denoise_model = opt.denoise_model     # A folder containing pth models to be tested
 train_datasets_size = opt.train_datasets_size    # dataset size for training (the number of patches)
 GPU = opt.GPU                         # the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')
 patch_xy = opt.patch_xy               # the width and height of 3D patches
@@ -55,12 +53,13 @@ for folder in matching_folders:
   
   #%% use the chosen plane
   tif_files = [file for file in os.listdir(folder) if file.endswith('.tif')]
-  if chosen_plane==0
+  if chosen_plane==0:
     num_tif_files = len(tif_files)
     chosen_plane = int(num_tif_files/2)
   train_folder = os.path.join(folder, str(chosen_plane))
+  tif_path=os.path.join(folder,tif_files[chosen_plane])
   os.makedirs(train_folder, exist_ok=True)
-  shutil.copy(tif_files[chosen_plane], train_folder)
+  shutil.copy(tif_path, train_folder)
 
   # %% Setup some parameters for result visualization during testing period (optional)
   visualize_images_per_epoch = False  # choose whether to display inference performance after each epoch
