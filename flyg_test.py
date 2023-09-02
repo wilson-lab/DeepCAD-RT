@@ -8,8 +8,8 @@ import os
 #############################################################################################################################################
 parser = argparse.ArgumentParser()
 parser.add_argument('--GPU', type=str, default='0', help="the index of GPU you will use for computation")
-parser.add_argument('--patch_xy', type=int, default=10, help="the width and height of image sequence")
-parser.add_argument('--patch_t', type=int, default=10, help="the slices of image sequence")
+parser.add_argument('--patch_xy', type=int, default=150, help="the width and height of image sequence")
+parser.add_argument('--patch_t', type=int, default=150, help="the slices of image sequence")
 parser.add_argument('--overlap_factor', type=int, default=0.6, help="overlap between image sequences")
 parser.add_argument('--num_workers', type=int, default=1, help="number of CPU workers, rec 4 if you can")
 parser.add_argument('--datasets_path', type=str, default='/n/data1/hms/neurobio/wilson/DeepCAD_datasets/20230811-3_EK021_7f_shade_cone_bright/', help="dataset root path")

@@ -3,9 +3,9 @@
 #SBATCH --partition gpu_quad               # Use a quad GPU
 #SBATCH --gres=gpu:rtx8000:1,vram:28G      # Number to use
 #SBATCH --time=4-00:00                     # Runtime in D-HH:MM format
-#SBATCH --mem=140GB                        # Memory total (for all cores)
-#SBATCH -o jobs/deepcadrt_test_%j.out             # File to which STDOUT will be written, including job ID (%j)
-#SBATCH -e jobs/deepcadrt_test_%j.err             # File to which STDERR will be written, including job ID (%j)
+#SBATCH --mem-per-cpu=25G                  # Memory total (for all cores)
+#SBATCH -o jobs/deepcadrt_test_%j.out      # File to which STDOUT will be written, including job ID (%j)
+#SBATCH -e jobs/deepcadrt_test_%j.err      # File to which STDERR will be written, including job ID (%j)
 
 start=`date +%s`
 
