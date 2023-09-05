@@ -9,14 +9,14 @@ import shutil
 #############################################################################################################################################
 parser = argparse.ArgumentParser()
 parser.add_argument('--GPU', type=str, default='0', help="the index of GPU you will use for computation")
-parser.add_argument('--patch_xy', type=int, default=150, help="the width and height of image sequence")
-parser.add_argument('--patch_t', type=int, default=150, help="the slices of image sequence")
+parser.add_argument('--patch_xy', type=int, default=50, help="the width and height of image sequence")
+parser.add_argument('--patch_t', type=int, default=50, help="the slices of image sequence")
 parser.add_argument('--overlap_factor', type=int, default=0.25, help="overlap between image sequences")
-parser.add_argument('--num_workers', type=int, default=1, help="number of CPU workers, rec 4 if you can")
+parser.add_argument('--num_workers', type=int, default=1, help="number of CPU workers, rec. 4 if you can")
 parser.add_argument('--datasets_path', type=str, default='/n/data1/hms/neurobio/wilson/DeepCAD_datasets/20230811-3_EK021_7f_shade_cone_bright/', help="dataset root path")
-parser.add_argument('--train_datasets_size', type=int, default=20630, help='dataset size to be tested')
-parser.add_argument('--n_epochs', type=int, default=10, help='dataset size to be tested')
-parser.add_argument('--chosen_plane', type=int, default=0, help='dataset size to be tested')
+parser.add_argument('--train_datasets_size', type=int, default=6000, help='dataset size to be tested')
+parser.add_argument('--n_epochs', type=int, default=10, help='how many training epochs to run')
+parser.add_argument('--chosen_plane', type=int, default=0, help='which plane should be used to build a model')
 opt = parser.parse_args()
 print('the parameters of your training ----->')
 print(opt)
@@ -63,7 +63,7 @@ for folder in matching_folders:
 
   # %% Setup some parameters for result visualization during testing period (optional)
   visualize_images_per_epoch = False  # choose whether to display inference performance after each epoch
-  save_test_images_per_epoch = True  # choose whether to save inference image after each epoch in pth path
+  save_test_images_per_epoch = False  # choose whether to save inference image after each epoch in pth path
   
   # %% Play the demo noise movie (optional)
   # playing the first noise movie using opencv.
