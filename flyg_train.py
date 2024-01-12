@@ -15,7 +15,7 @@ parser.add_argument('--overlap_factor', type=int, default=0.25, help="overlap be
 parser.add_argument('--num_workers', type=int, default=1, help="number of CPU workers, rec. 4 if you can")
 parser.add_argument('--datasets_path', type=str, default='/n/data1/hms/neurobio/wilson/DeepCAD_datasets/20230811-3_EK021_7f_shade_cone_bright/', help="dataset root path")
 parser.add_argument('--train_datasets_size', type=int, default=6000, help='dataset size to be tested')
-parser.add_argument('--n_epochs', type=int, default=10, help='how many training epochs to run')
+parser.add_argument('--n_epochs', type=int, default=15, help='how many training epochs to run')
 parser.add_argument('--chosen_plane', type=int, default=0, help='which plane should be used to build a model')
 opt = parser.parse_args()
 print('the parameters of your training ----->')
